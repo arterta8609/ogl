@@ -220,6 +220,7 @@ int main( void )
     
 	
 	do{
+		//先渲染到FrameBuffer， 然后使用这个RT在渲染到屏幕
 		// Render to our framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
 		glViewport(0,0,windowWidth,windowHeight); // Render on the whole framebuffer, complete from the lower left corner to the upper right
@@ -290,7 +291,7 @@ int main( void )
 
 		// Index buffer
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-
+		//绘制模型
 		// Draw the triangles !
 		glDrawElements(
 			GL_TRIANGLES,      // mode
@@ -304,7 +305,7 @@ int main( void )
 		glDisableVertexAttribArray(2);
 
 
-
+		//开始渲染到屏幕
 		// Render to the screen
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
         // Render on the whole framebuffer, complete from the lower left corner to the upper right
@@ -323,7 +324,7 @@ int main( void )
 		glUniform1i(texID, 0);
 
 		glUniform1f(timeID, (float)(glfwGetTime()*10.0f) );
-
+		//一个简单的三角形
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, quad_vertexbuffer);
@@ -335,7 +336,7 @@ int main( void )
 			0,                  // stride
 			(void*)0            // array buffer offset
 		);
-
+		//画这个三角形
 		// Draw the triangles !
 		glDrawArrays(GL_TRIANGLES, 0, 6); // 2*3 indices starting at 0 -> 2 triangles
 
